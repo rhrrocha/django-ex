@@ -1,0 +1,15 @@
+#!/bin/bash
+
+echo "Antes do assemble"
+
+mkdir -p $HOME/.ssh/
+ssh-keyscan vs-ssh.visualstudio.com >> $HOME/.ssh/known_hosts
+
+/usr/libexec/s2i/assemble
+rc=$?
+if [ $rc -eq 0 ]; then
+    echo "Sucesso no assemble"
+else
+    echo "Falha no assemble"
+fi
+exit $rc
